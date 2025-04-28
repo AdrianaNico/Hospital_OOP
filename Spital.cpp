@@ -1,0 +1,41 @@
+#include "Spital.h"
+
+void Spital::adaugaMedic(Medic m) {
+    medici.push_back(m);
+}
+
+void Spital::adaugaPacient(Pacient p) {
+    pacienti.push_back(p);
+}
+
+void Spital::adaugaConsultatie(Consultatie c) {
+    consultatii.push_back(c);
+}
+
+
+void Spital::afisareConsultatii() {
+    for (auto& c : consultatii)
+        c.afisareDetalii();
+}
+
+vector<Medic>& Spital::getMedici() {
+    return medici;
+}
+
+vector<Consultatie>& Spital::getConsultatii() {
+    return consultatii;
+}
+
+Pacient* Spital::cautaPacient(string nume) {
+    for (auto& pacient : pacienti)
+        if (pacient.getNumePacient() == nume)
+            return &pacient;
+    return nullptr;
+}
+
+Medic* Spital::cautaMedic(string nume) {
+    for (auto& medic : medici)
+        if (medic.getNumeMedic() == nume)
+            return &medic;
+    return nullptr;
+}
