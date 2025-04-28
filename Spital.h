@@ -5,12 +5,14 @@
 #include "Pacient.h"
 #include "Consultatie.h"
 #include <vector>
+#include <string>
+#include <iostream>
 
 class Spital {
 private:
-    vector<Medic> medici;
-    vector<Pacient> pacienti;
-    vector<Consultatie> consultatii;
+    std::vector<Medic> medici;
+    std::vector<Pacient> pacienti;
+    std::vector<Consultatie> consultatii;
 
 public:
     void adaugaMedic(Medic m) {
@@ -30,39 +32,39 @@ public:
             c.afisareDetalii();
     }
 
-    vector<Medic>& getMedici() {
+    std::vector<Medic>& getMedici() {
         return medici;
     }
-    vector<Consultatie>& getConsultatii() {
+
+    std::vector<Consultatie>& getConsultatii() {
         return consultatii;
     }
 
-    Pacient* cautaPacient(string nume)
+    Pacient* cautaPacient(std::string nume)
     {
         for (auto& pacient : pacienti)
         {
             if (pacient.getNumePacient() == nume)
             {
-                cout << "Pacient gasit: " << pacient.getNumePacient() << endl;
+                std::cout << "Pacient gasit: " << pacient.getNumePacient() << std::endl;
                 return &pacient;
             }
         }
         return nullptr;
     }
 
-    Medic* cautaMedic(string nume)
+    Medic* cautaMedic(std::string nume)
     {
         for (auto& medic : medici)
         {
             if (medic.getNumeMedic() == nume)
             {
-                cout << "Medic gasit: " << medic.getNumeMedic() << endl;
+                std::cout << "Medic gasit: " << medic.getNumeMedic() << std::endl;
                 return &medic;
             }
         }
         return nullptr;
     }
-    
 };
 
 #endif // SPITAL_H

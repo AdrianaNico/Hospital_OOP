@@ -30,7 +30,3 @@ Reteta& Consultatie::getReteta() {
     return reteta;
 }
 
-
-//am facut ceva
-//am facut si altceva uau merge
-//am mai facut cevaaaaa
