@@ -165,52 +165,52 @@ int main() {
                         inapoiLaMeniu = true;
                         loggedIn = false;
                         break;
-                        case 8: {//cu retetaaaaaa
-                            string numePacient, data;
-                            cout << "Introduceti numele pacientului: ";
-                            cin.ignore();
-                            getline(cin, numePacient);
-                            cout << "Introduceti data consultatiei (ex: 2025-04-23): ";
-                            getline(cin, data);
+                        // case 8: {//cu retetaaaaaa
+                        //     string numePacient, data;
+                        //     cout << "Introduceti numele pacientului: ";
+                        //     cin.ignore();
+                        //     getline(cin, numePacient);
+                        //     cout << "Introduceti data consultatiei (ex: 2025-04-23): ";
+                        //     getline(cin, data);
                         
-                            vector<Consultatie>& listaConsultatii = spital.getConsultatii();
-                            Consultatie* consultatieGasita = nullptr;
-                            for (auto& consultatie : listaConsultatii) {
-                                if (consultatie.getPacient() && consultatie.getPacient()->getNumePacient() == numePacient && consultatie.getData() == data) {
-                                    consultatieGasita = &consultatie;
-                                    break;
-                                }
-                            }
+                        //     vector<Consultatie>& listaConsultatii = spital.getConsultatii();
+                        //     Consultatie* consultatieGasita = nullptr;
+                        //     for (auto& consultatie : listaConsultatii) {
+                        //         if (consultatie.getPacient() && consultatie.getPacient()->getNumePacient() == numePacient && consultatie.getData() == data) {
+                        //             consultatieGasita = &consultatie;
+                        //             break;
+                        //         }
+                        //     }
                         
-                            if (!consultatieGasita) {
-                                cout << "Consultatie inexistenta!" << endl;
-                                break;
-                            }
+                        //     if (!consultatieGasita) {
+                        //         cout << "Consultatie inexistenta!" << endl;
+                        //         break;
+                        //     }
                         
-                            cout << "Detalii consultatie:" << endl;
-                            consultatieGasita->afisareDetalii();
+                        //     cout << "Detalii consultatie:" << endl;
+                        //     consultatieGasita->afisareDetalii();
                         
-                            Reteta& reteta = consultatieGasita->getReteta();
-                            if (!reteta.getMedicamente().empty()) {
-                                cout << "Reteta exista deja. Iata medicamentele:\n";
-                                reteta.afisareReteta();
-                                cout << "Doriti sa adaugati si alte medicamente? (da/nu): ";
-                                string raspuns;
-                                getline(cin, raspuns);
-                                if (raspuns != "da") break;
-                            }
+                        //     Reteta& reteta = consultatieGasita->getReteta();
+                        //     if (!reteta.getMedicamente().empty()) {
+                        //         cout << "Reteta exista deja. Iata medicamentele:\n";
+                        //         reteta.afisareReteta();
+                        //         cout << "Doriti sa adaugati si alte medicamente? (da/nu): ";
+                        //         string raspuns;
+                        //         getline(cin, raspuns);
+                        //         if (raspuns != "da") break;
+                        //     }
                         
-                            while (true) {
-                                string medicament;
-                                cout << "Introduceti un medicament (sau scrie 'stop' pentru a termina): ";
-                                getline(cin, medicament);
-                                if (medicament == "stop") break;
-                                reteta.adaugaMedicament(medicament);
-                            }
+                        //     while (true) {
+                        //         string medicament;
+                        //         cout << "Introduceti un medicament (sau scrie 'stop' pentru a termina): ";
+                        //         getline(cin, medicament);
+                        //         if (medicament == "stop") break;
+                        //         reteta.adaugaMedicament(medicament);
+                        //     }
                         
-                            cout << "Reteta a fost actualizata cu succes!" << endl;
-                            break;
-                        }
+                        //     cout << "Reteta a fost actualizata cu succes!" << endl;
+                        //     break;
+                        // }
                         
                     default:
                         cout << "\033[2J\033[1;1H";
@@ -280,17 +280,15 @@ int main() {
                             break;
                         }
 
-                        cout << "Introduceti data consultatiei: ";
+                        cout << "Introduceti data consultatiei(ZZ-LL-AAAA): ";
                         cin >> data;
                         cout << "Introduceti problema pe care o aveti: ";
                         cin.ignore();
                         getline(cin, diagnostic);
                         pacientGasit->adaugaIstoricMedical(diagnostic);
 
-                        vector<string> listaGoala;
-                        Reteta retetaGoala(pacientGasit, medicGasit, listaGoala); 
 
-                        Consultatie consultatie(pacientGasit, medicGasit, data, diagnostic, retetaGoala);
+                        Consultatie consultatie(pacientGasit, medicGasit, data, diagnostic);
                         spital.adaugaConsultatie(consultatie);
                         cout << "\033[2J\033[1;1H";
                         cout << "Programarea a fost facuta cu succes!" << endl;

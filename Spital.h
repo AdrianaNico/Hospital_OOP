@@ -4,6 +4,7 @@
 #include "Medic.h"
 #include "Pacient.h"
 #include "Consultatie.h"
+#include "Persoana.cpp"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -15,56 +16,21 @@ private:
     std::vector<Consultatie> consultatii;
 
 public:
-    void adaugaMedic(Medic m) {
-        medici.push_back(m);
-    }
+    void adaugaMedic(Medic m);
+ 
+    void adaugaPacient(Pacient p);
 
-    void adaugaPacient(Pacient p) {
-        pacienti.push_back(p);
-    }
+    void adaugaConsultatie(Consultatie c);
 
-    void adaugaConsultatie(Consultatie c) {
-        consultatii.push_back(c);
-    }
+    void afisareConsultatii();
 
-    void afisareConsultatii() {
-        for (auto& c : consultatii)
-            c.afisareDetalii();
-    }
+    std::vector<Medic>& getMedici();
 
-    std::vector<Medic>& getMedici() {
-        return medici;
-    }
+    std::vector<Consultatie>& getConsultatii();
 
-    std::vector<Consultatie>& getConsultatii() {
-        return consultatii;
-    }
+    Pacient* cautaPacient(std::string nume);
 
-    Pacient* cautaPacient(std::string nume)
-    {
-        for (auto& pacient : pacienti)
-        {
-            if (pacient.getNumePacient() == nume)
-            {
-                std::cout << "Pacient gasit: " << pacient.getNumePacient() << std::endl;
-                return &pacient;
-            }
-        }
-        return nullptr;
-    }
-
-    Medic* cautaMedic(std::string nume)
-    {
-        for (auto& medic : medici)
-        {
-            if (medic.getNumeMedic() == nume)
-            {
-                std::cout << "Medic gasit: " << medic.getNumeMedic() << std::endl;
-                return &medic;
-            }
-        }
-        return nullptr;
-    }
+    Medic* cautaMedic(std::string nume);
 };
 
 #endif // SPITAL_H

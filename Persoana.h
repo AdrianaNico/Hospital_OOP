@@ -14,11 +14,11 @@ protected:
     string CNP;
 
 public:
-    Persoana(string n, int v, string c) : nume(n), varsta(v), CNP(c) {}
+    Persoana(string n, int v, string c);
     virtual void afisareDetalii() = 0;
     virtual void afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) = 0;
 
-    string getCNP() const { return CNP; }
+    string getCNP(); 
 };
 
 #endif // PERSOANA_H

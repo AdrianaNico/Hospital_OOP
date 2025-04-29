@@ -23,3 +23,4 @@ void Reteta::adaugaMedicament(const string& med) {
 const vector<string>& Reteta::getMedicamente() const {
     return medicamente;
 }
+ 

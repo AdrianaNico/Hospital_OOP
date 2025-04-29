@@ -19,10 +19,26 @@ void Medic::afisareDetalii() {
     cout << endl;
 }
 
-void Medic::afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medicGasit) {
-    for (const auto& consultatie : consultatii) {
-        if (consultatie.getMedic()->getNumeMedic() == medicGasit->getNumeMedic())
+void Medic::adaugaPacient(Pacient* pacient) {
+    pacienti.push_back(pacient);
+}
+void Medic::afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) {
+    if (consultatii.empty()) {
+        cout << "Nu exista consultatii." << endl;
+        return;
+    }
+    for (auto& consultatie : consultatii) {
+        if (consultatie.getMedic()->getNumeMedic() == medic->getNumeMedic()) {
             cout << "Pacient: " << consultatie.getPacient()->getNumePacient()
                  << " in data de " << consultatie.getData() << endl;
+        }
     }
 }
+
+string Medic::getNumeMedic() const {
+    return nume;
+}
+string Medic::getSpecializare() const {
+    return specializare;
+}
+

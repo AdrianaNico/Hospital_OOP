@@ -3,16 +3,13 @@
 #include <iostream>
 
 using namespace std;
-
-Consultatie::Consultatie(Pacient* p, Medic* m, string d, string diag, const Reteta& r)
-    : pacient(p), medic(m), data(d), diagnostic(diag), reteta(r) {}
+ 
+Consultatie::Consultatie(Pacient* p, Medic* m, string d, string diag)
+    : pacient(p), medic(m), data(d), diagnostic(diag) {}
 
 void Consultatie::afisareDetalii() {
     cout << "Consultatie: " << data << ", Diagnosticul: " << diagnostic
          << ", Medic: " << medic->getNumeMedic() << "\n";
-
-    cout << "Reteta aferenta:\n";
-    reteta.afisareReteta();
 }
 
 Medic* Consultatie::getMedic() const {
@@ -26,7 +23,3 @@ Pacient* Consultatie::getPacient() const {
 string Consultatie::getData() const {
     return data;
 }
-Reteta& Consultatie::getReteta() {
-    return reteta;
-}
-

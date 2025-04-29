@@ -2,38 +2,25 @@
 #define CONSULTATIE_H
 
 #include "Pacient.h"
-#include "Reteta.h" 
-class Medic;
+class Medic; 
 
 class Consultatie {
 private:
     Pacient* pacient;
     Medic* medic;
     string data;
-    string diagnostic;
-    Reteta reteta; 
+    string diagnostic; 
 
 public: 
-Consultatie(Pacient* p, Medic* m, string d, string diag, const Reteta& r);
+Consultatie(Pacient* p, Medic* m, string d, string diag);
 
 
     void afisareDetalii();
 
-    Medic* getMedic() const //cu const pt ca valoarea sa nu se schimbe
-    { 
-        return medic; 
-    }
-    Pacient* getPacient() const 
-    { 
-        return pacient; 
-    }
-    string getData() const 
-    { 
-        return data; 
-    }
-    Reteta& getReteta() {
-        return reteta;
-    }
+    Medic* getMedic() const;
+    Pacient* getPacient() const;
+    string getData() const;
+
     
 
 

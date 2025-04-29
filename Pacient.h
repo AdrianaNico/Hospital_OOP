@@ -16,34 +16,16 @@ private:
 public:
     Pacient(string n, int v, string c) : Persoana(n, v, c) {}
 
-    void adaugaConsultatie(string diagnostic) {
-        istoricMedical.push_back(diagnostic);
-    }
+    void adaugaConsultatie(string diagnostic);
 
-    void afisareDetalii() override {
-        cout << "Pacient: " << nume << ", Varsta: " << varsta << endl;
-        cout << "Istoric medical: ";
-        for (const auto& diag : istoricMedical) {
-            cout << diag << "; ";
-        }
-        cout << endl;
-    }
+    void afisareDetalii() override;
 
-    void adaugaIstoricMedical(const string& i) {
-        istoricMedical.push_back(i);
-    }
-    vector<string> getIstoricMedical() {
-        return istoricMedical;
-    }
+    void adaugaIstoricMedical(const string& i);
+    vector<string> getIstoricMedical();
 
-    void afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) override {
-        cout << "Consultatiile pacientului "<<endl;
-    }
-    
+    void afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) override;
 
-    string getNumePacient() const {
-        return nume;
-    }
+    string getNumePacient() const;
 
 };
 

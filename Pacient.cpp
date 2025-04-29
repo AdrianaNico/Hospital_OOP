@@ -17,11 +17,16 @@ void Pacient::afisareDetalii() {
     }
     cout << endl;
 }
-
+void Pacient::adaugaIstoricMedical(const string& i) {
+    istoricMedical.push_back(i);
+}
 void Pacient::afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) {
     cout << "Consultatiile pacientului... (de implementat)" << endl;
 }
 
 vector<string> Pacient::getIstoricMedical() {
     return istoricMedical;
+}
+string Pacient::getNumePacient() const {
+    return nume;
 }

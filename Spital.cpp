@@ -17,7 +17,7 @@ void Spital::afisareConsultatii() {
     for (auto& c : consultatii)
         c.afisareDetalii();
 }
-
+ 
 vector<Medic>& Spital::getMedici() {
     return medici;
 }
