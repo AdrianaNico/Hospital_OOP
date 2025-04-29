@@ -3,10 +3,6 @@
 
 using namespace std;
 
-void Medic::adaugaPacient(Pacient* pacient) {
-    pacienti.push_back(pacient);
-}
-
 void Medic::afisareDetalii() {
     cout << "Medic: " << nume << ", Specializare: " << specializare << endl;
     cout << "Pacienti: ";
@@ -26,7 +22,7 @@ void Medic::afisareConsultatii(const vector<Consultatie>& consultatii, Medic* me
     if (consultatii.empty()) {
         cout << "Nu exista consultatii." << endl;
         return;
-    }
+    } 
     for (auto& consultatie : consultatii) {
         if (consultatie.getMedic()->getNumeMedic() == medic->getNumeMedic()) {
             cout << "Pacient: " << consultatie.getPacient()->getNumePacient()

@@ -14,7 +14,7 @@ private:
     vector<string> istoricMedical;
 
 public:
-    Pacient(string n, int v, string c) : Persoana(n, v, c) {}
+    Pacient(string n, int v, string c);
 
     void adaugaConsultatie(string diagnostic);
 
@@ -24,7 +24,7 @@ public:
     vector<string> getIstoricMedical();
 
     void afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) override;
-
+ 
     string getNumePacient() const;
 
 };

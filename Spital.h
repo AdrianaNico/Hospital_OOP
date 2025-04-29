@@ -4,7 +4,8 @@
 #include "Medic.h"
 #include "Pacient.h"
 #include "Consultatie.h"
-#include "Persoana.cpp"
+#include "Persoana.h"
+#include "Reteta.h"
 #include <vector>
 #include <string>
 #include <iostream>

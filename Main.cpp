@@ -314,6 +314,7 @@ int main() {
                             
                             break;
                         }
+                        cout << "\033[2J\033[1;1H";
                         pacientGasit->afisareDetalii();
                         
                         break;

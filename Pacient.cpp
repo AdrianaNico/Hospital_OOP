@@ -13,9 +13,9 @@ void Pacient::afisareDetalii() {
     cout << "Pacient: " << nume << ", Varsta: " << varsta << ", CNP: " << CNP << endl;
     cout << "Istoric medical: ";
     for (const auto& diag : istoricMedical) {
-        cout << diag << ", ";
+        cout << diag << "; ";
     }
-    cout << endl;
+    cout << endl; 
 }
 void Pacient::adaugaIstoricMedical(const string& i) {
     istoricMedical.push_back(i);

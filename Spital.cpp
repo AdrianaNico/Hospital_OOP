@@ -7,7 +7,7 @@ void Spital::adaugaMedic(Medic m) {
 void Spital::adaugaPacient(Pacient p) {
     pacienti.push_back(p);
 }
-
+ 
 void Spital::adaugaConsultatie(Consultatie c) {
     consultatii.push_back(c);
 }
