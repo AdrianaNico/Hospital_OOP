@@ -9,6 +9,7 @@
 #include <cctype> //pt toupper
 #include <string>
 #include <vector>
+#include <sstream> //pt istringstream
 #include <limits>//pt numeric_limits
 #include "Spital.h"
 
@@ -61,8 +62,7 @@ int main() {
                 std::cout << "2. Afiseaza consultatii" << std::endl;
                 std::cout << "3. Afiseaza pacientii" << std::endl;
                 std::cout << "4. Afiseaza detalii pacient" << std::endl;
-                //std::cout << "5. Afiseaza detalii consultatie" << std::endl;
-                std::cout<< "5.prescriere reteta"<<std::endl;
+                std::cout<< "5. Prescriere reteta"<<std::endl;
                 std::cout << "6. Iesi din program" << std::endl;
                 std::cout << "7. Inapoi la meniul principal" << std::endl;
                 std::cout << "Introduceti optiunea: ";
@@ -155,7 +155,43 @@ int main() {
                     case 4:{//
                         break;
                     }
-                    case 5:
+                    case 5:{//prescrie reteta
+                        std:: string nume_medic, nume_pacient;
+                        std::vector<std::string> medicamente;
+                        std::cout << "Introduceti numele dvs(medic): ";
+                        std::cin.ignore();
+                        getline(std::cin, nume_medic);
+                        std::cout << "Introduceti numele pacientului: ";
+                        getline(std::cin, nume_pacient);
+                        Medic* medicGasit = spital.cautaMedic(nume_medic);
+                        Pacient* pacientGasit = spital.cautaPacient(nume_pacient);
+                        if (!medicGasit) {
+                            std::cout << "\033[2J\033[1;1H";
+                            std::cout << "Medicul " << nume_medic << " nu exista!" << std::endl;
+                            
+                            break;
+                        }
+                        if (!pacientGasit) {
+                            std::cout << "\033[2J\033[1;1H";
+                            std::cout << "Pacientul " << nume_pacient << " nu exista!" << std::endl;
+                            
+                            break;
+                        }
+                        std::cout<<"Introduceti medicamentele prescrise (separati prin spatiu): ";
+                        std::string medicamente_input;
+                        getline(std::cin, medicamente_input);
+                        std::istringstream ss(medicamente_input);
+
+                        std::string medicament;
+                        while(ss >>medicament){
+                            medicamente.push_back(medicament);
+                        }
+                        Reteta reteta(pacientGasit, medicGasit, medicamente);
+                        std::cout<< "\033[2J\033[1;1H";
+                        std::cout << "Reteta a fost creata cu succes!" << std::endl;
+
+                        break;
+                    }
                     case 6:
                     std::cout << "\033[2J\033[1;1H";
                     std::cout << "Multumesc ca ai folosit aplicatia!<3" << std::endl;
@@ -224,7 +260,8 @@ int main() {
                 std::cout << "2. Programeaza consultatie" << std::endl;
                 std::cout << "3. Afiseaza medicii" << std::endl;
                 std::cout << "4. Afiseaza detalii pacient" << std::endl;
-                std::cout << "5. Afiseaza detalii consultatie" << std::endl;
+                std::cout << "5. Afiseaza detalii consultatie" << std::endl;//vezi consultatiile pacientului
+                //vezi retetele primite
                 std::cout << "6. Iesi din program" << std::endl;
                 std::cout << "7. Inapoi la meniul principal" << std::endl;
                 std::cout << "Introduceti optiunea: ";
