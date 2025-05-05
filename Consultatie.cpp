@@ -2,13 +2,12 @@
 #include "Medic.h"
 #include <iostream>
 
-using namespace std;
  
-Consultatie::Consultatie(Pacient* p, Medic* m, string d, string diag)
+Consultatie::Consultatie(Pacient* p, Medic* m, std::string d, std::string diag)
     : pacient(p), medic(m), data(d), diagnostic(diag) {}
 
 void Consultatie::afisareDetalii() {
-    cout << "Consultatie: " << data << ", Diagnosticul: " << diagnostic
+    std::cout << "Consultatie: " << data << ", Diagnosticul: " << diagnostic
          << ", Medic: " << medic->getNumeMedic() << "\n";
 }
 
@@ -20,6 +19,6 @@ Pacient* Consultatie::getPacient() const {
     return pacient;
 }
 
-string Consultatie::getData() const {
+std::string Consultatie::getData() const {
     return data;
 }

@@ -2,23 +2,23 @@
 #define PERSOANA_H
 #include <string>
 #include <vector>
-using namespace std;
+
 
 class Medic;
 class Consultatie;
 
 class Persoana {
 protected:
-    string nume;
+    std::string nume;
     int varsta;
-    string CNP;
+    std::string CNP;
 
 public:
-    Persoana(string n, int v, string c);
+    Persoana(std::string n, int v,std:: string c);
     virtual void afisareDetalii() = 0;
-    virtual void afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) = 0;
+    virtual void afisareConsultatii(const std::vector<Consultatie>& consultatii, Medic* medic) = 0;
 
-    string getCNP(); 
+    std::string getCNP(); 
 };
 
 #endif // PERSOANA_H

@@ -6,20 +6,18 @@
 #include "Medic.h"
 #include "Pacient.h"
 
-using namespace std;
-
 struct Reteta {
     static int nrReteta;
 
     int id;
     Pacient* pacient;
     Medic* medic;
-    vector<string> medicamente;
+    std::vector<std::string> medicamente;
 
-    Reteta(Pacient* p, Medic* m, const vector<string>& meds);
+    Reteta(Pacient* p, Medic* m, const std::vector<std::string>& meds);
     void afisareReteta() const;
-    void adaugaMedicament(const string& med);
-    const vector<string>& getMedicamente() const;
+    void adaugaMedicament(const std::string& med);
+    const std::vector<std::string>& getMedicamente() const;
 };
 
 #endif // RETETA_H

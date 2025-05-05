@@ -7,25 +7,23 @@
 
 class Medic; // Forward declaration pentru a evita includerea ciclică
 
-using namespace std;
-
 class Pacient : public Persoana {
 private:
-    vector<string> istoricMedical;
+std::vector<std::string> istoricMedical;
 
 public:
-    Pacient(string n, int v, string c);
+    Pacient(std::string n, int v, std::string c);
 
-    void adaugaConsultatie(string diagnostic);
+    void adaugaConsultatie(std::string diagnostic);
 
     void afisareDetalii() override;
 
-    void adaugaIstoricMedical(const string& i);
-    vector<string> getIstoricMedical();
+    void adaugaIstoricMedical(const std:: string& i);
+    std::vector<std::string> getIstoricMedical();
 
-    void afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) override;
+    void afisareConsultatii(const std::vector<Consultatie>& consultatii, Medic* medic) override;
  
-    string getNumePacient() const;
+    std::string getNumePacient() const;
 
 };
 

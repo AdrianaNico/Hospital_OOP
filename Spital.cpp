@@ -18,22 +18,22 @@ void Spital::afisareConsultatii() {
         c.afisareDetalii();
 }
  
-vector<Medic>& Spital::getMedici() {
+std::vector<Medic>& Spital::getMedici() {
     return medici;
 }
 
-vector<Consultatie>& Spital::getConsultatii() {
+std::vector<Consultatie>& Spital::getConsultatii() {
     return consultatii;
 }
 
-Pacient* Spital::cautaPacient(string nume) {
+Pacient* Spital::cautaPacient(std::string nume) {
     for (auto& pacient : pacienti)
         if (pacient.getNumePacient() == nume)
             return &pacient;
     return nullptr;
 }
 
-Medic* Spital::cautaMedic(string nume) {
+Medic* Spital::cautaMedic(std::string nume) {
     for (auto& medic : medici)
         if (medic.getNumeMedic() == nume)
             return &medic;

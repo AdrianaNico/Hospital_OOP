@@ -2,28 +2,23 @@
 #define CONSULTATIE_H
 
 #include "Pacient.h"
-class Medic; 
+class Medic;
 
 class Consultatie {
 private:
     Pacient* pacient;
     Medic* medic;
-    string data;
-    string diagnostic; 
+    std::string data;
+    std::string diagnostic;
 
-public: 
-Consultatie(Pacient* p, Medic* m, string d, string diag);
-
-
+public:
+    Consultatie(Pacient* p, Medic* m, std::string d, std::string diag);
+    
     void afisareDetalii();
-
+    
     Medic* getMedic() const;
     Pacient* getPacient() const;
-    string getData() const;
-
-    
-
-
+    std::string getData() const;
 };
 
 #endif // CONSULTATIE_H

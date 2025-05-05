@@ -8,22 +8,21 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
 
 class Medic : public Persoana {
 private:
-    string specializare;
-    vector<Pacient*> pacienti;  // Folosim vector de pointeri la Pacient
+std::string specializare;
+std::vector<Pacient*> pacienti;  // Folosim vector de pointeri la Pacient
 
 public:
-    Medic(string n, int v, string c, string s) : Persoana(n, v, c), specializare(s) {}
+    Medic(std::string n, int v, std::string c, std::string s) : Persoana(n, v, c), specializare(s) {}
 
     void adaugaPacient(Pacient* pacient);
 
     void afisareDetalii() override;
-    void afisareConsultatii(const vector<Consultatie>& consultatii, Medic* medic) override;
-    string getNumeMedic() const;
-    string getSpecializare() const;
+    void afisareConsultatii(const std::vector<Consultatie>& consultatii, Medic* medic) override;
+    std::string getNumeMedic() const;
+    std::string getSpecializare() const;
 };
 
 #endif // MEDIC_H
