@@ -15,6 +15,7 @@ private:
     std::vector<Medic> medici;
     std::vector<Pacient> pacienti;
     std::vector<Consultatie> consultatii;
+    std::vector<Reteta> retete;
 
 public:
     void adaugaMedic(Medic m);
@@ -23,12 +24,16 @@ public:
 
     void adaugaConsultatie(Consultatie c);
 
+    void adaugaReteta(Reteta r);
+
     void afisareConsultatii();
 
     std::vector<Medic>& getMedici();
 
     std::vector<Consultatie>& getConsultatii();
-
+    
+    std::vector<Reteta>& getRetete();
+    
     Pacient* cautaPacient(std::string nume);
 
     Medic* cautaMedic(std::string nume);

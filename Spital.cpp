@@ -12,6 +12,9 @@ void Spital::adaugaConsultatie(Consultatie c) {
     consultatii.push_back(c);
 }
 
+void Spital::adaugaReteta(Reteta r) {
+    retete.push_back(r);
+}
 
 void Spital::afisareConsultatii() {
     for (auto& c : consultatii)
@@ -24,6 +27,10 @@ std::vector<Medic>& Spital::getMedici() {
 
 std::vector<Consultatie>& Spital::getConsultatii() {
     return consultatii;
+}
+
+std::vector<Reteta>& Spital:: getRetete() {
+    return retete;
 }
 
 Pacient* Spital::cautaPacient(std::string nume) {

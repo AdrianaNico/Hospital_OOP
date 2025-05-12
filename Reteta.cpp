@@ -9,17 +9,18 @@ Reteta::Reteta(Pacient* p, Medic* m, const std::vector<std::string>& meds)
 }
 
 void Reteta::afisareReteta() const {
-    std::cout << "Reteta #" << id << " pentru pacientul cu CNP: " << pacient->getCNP() << "\n";
-    std::cout << "Medic: " << medic->getCNP() << "\n";
-    std::cout << "Medicamente: ";
+    std::cout << "Reteta #" << id << "\n";
     for (const auto& med : medicamente)
     std::cout << med << " ";
-    std::cout << "\n";
+    std::cout << "\n\n";
 }
 void Reteta::adaugaMedicament(const std::string& med) {
     medicamente.push_back(med);
 }
-
+Pacient* Reteta::getPacient() const {
+    return pacient;
+}
+ 
 const std::vector<std::string>& Reteta::getMedicamente() const {
     return medicamente;
 }

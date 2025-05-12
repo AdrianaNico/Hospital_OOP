@@ -18,7 +18,8 @@ struct Reteta {
     void afisareReteta() const;
     void adaugaMedicament(const std::string& med);
     const std::vector<std::string>& getMedicamente() const;
+    Pacient* getPacient() const;
 };
-
+ 
 #endif // RETETA_H
  

@@ -49,7 +49,7 @@ int main() {
                     break;
             }
 
-            system("cls");
+            system("cls");//sterge terminalul
         } while (!loggedIn);
 
         inapoiLaMeniu = false;
@@ -61,10 +61,10 @@ int main() {
                 std::cout << "1. Inregistreaza medic" << std::endl;
                 std::cout << "2. Afiseaza consultatii" << std::endl;
                 std::cout << "3. Afiseaza pacientii" << std::endl;
-                std::cout << "4. Afiseaza detalii pacient" << std::endl;
+                std::cout << "4. Afiseaza detalii pacient" << std::endl;// sa ii afisez si retetele
                 std::cout<< "5. Prescriere reteta"<<std::endl;
-                std::cout << "6. Iesi din program" << std::endl;
-                std::cout << "7. Inapoi la meniul principal" << std::endl;
+                std::cout << "6. Inapoi la meniul principal" << std::endl;
+                std::cout << "7. Iesi din program" << std::endl;
                 std::cout << "Introduceti optiunea: ";
                 std::cin >> optiune;
 
@@ -73,7 +73,7 @@ int main() {
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std:: cout<< "\033[2J\033[1;1H";
                     std::cout << "Optiune invalida! Te rog sa introduci un numar valid." << std::endl;
-                    continue;
+                    continue;//verifica daca valoarea primta este un int
                 }
 
                 switch (optiune) {
@@ -152,7 +152,26 @@ int main() {
                         }
                         break;
                     }
-                    case 4:{//
+                    case 4:{
+                        std::string nume;
+                        std::cout << "Introduceti numele pacientului: ";
+                        std::cin>>nume;
+                        Pacient* pacientGasit = spital.cautaPacient(nume);
+                        if (!pacientGasit) {
+                            std::cout << "\033[2J\033[1;1H";
+                            std::cout << "Pacientul " << nume << " nu exista!" << std::endl;
+                            
+                            break;
+                        }
+                        std::cout << "\033[2J\033[1;1H";
+                        pacientGasit->afisareDetalii();
+                        std::cout<<"Retetele pacientului: \n";
+                        for(auto& reteta: spital.getRetete()){
+                            if(reteta.getPacient()->getNumePacient()==pacientGasit->getNumePacient()){
+                                reteta.afisareReteta();
+                                
+                            }
+                        }
                         break;
                     }
                     case 5:{//prescrie reteta
@@ -180,73 +199,29 @@ int main() {
                         std::cout<<"Introduceti medicamentele prescrise (separati prin spatiu): ";
                         std::string medicamente_input;
                         getline(std::cin, medicamente_input);
-                        std::istringstream ss(medicamente_input);
+                        std::istringstream ss(medicamente_input);// trateaza stringul ca pe un stream, adica vede cuvintele ca fiind separate prin spatiu
 
                         std::string medicament;
-                        while(ss >>medicament){
+                        while(ss >>medicament){//se iau cuvintele pe rand din ss si se pun in medicament
                             medicamente.push_back(medicament);
                         }
                         Reteta reteta(pacientGasit, medicGasit, medicamente);
+                        spital.adaugaReteta(reteta);
                         std::cout<< "\033[2J\033[1;1H";
                         std::cout << "Reteta a fost creata cu succes!" << std::endl;
 
                         break;
                     }
                     case 6:
-                    std::cout << "\033[2J\033[1;1H";
-                    std::cout << "Multumesc ca ai folosit aplicatia!<3" << std::endl;
-                        return 0;
-                    case 7:
-                    std::cout << "\033[2J\033[1;1H";
+                        std::cout << "\033[2J\033[1;1H";
                         inapoiLaMeniu = true;
                         loggedIn = false;
                         break;
-                        // case 8: {//cu retetaaaaaa
-                        //     std::string numePacient, data;
-                        //     cout << "Introduceti numele pacientului: ";
-                        //     cin.ignore();
-                        //     getline(cin, numePacient);
-                        //     cout << "Introduceti data consultatiei (ex: 2025-04-23): ";
-                        //     getline(cin, data);
-                        
-                        //     vector<Consultatie>& listaConsultatii = spital.getConsultatii();
-                        //     Consultatie* consultatieGasita = nullptr;
-                        //     for (auto& consultatie : listaConsultatii) {
-                        //         if (consultatie.getPacient() && consultatie.getPacient()->getNumePacient() == numePacient && consultatie.getData() == data) {
-                        //             consultatieGasita = &consultatie;
-                        //             break;
-                        //         }
-                        //     }
-                        
-                        //     if (!consultatieGasita) {
-                        //         cout << "Consultatie inexistenta!" << endl;
-                        //         break;
-                        //     }
-                        
-                        //     cout << "Detalii consultatie:" << endl;
-                        //     consultatieGasita->afisareDetalii();
-                        
-                        //     Reteta& reteta = consultatieGasita->getReteta();
-                        //     if (!reteta.getMedicamente().empty()) {
-                        //         cout << "Reteta exista deja. Iata medicamentele:\n";
-                        //         reteta.afisareReteta();
-                        //         cout << "Doriti sa adaugati si alte medicamente? (da/nu): ";
-                        //        std:: string raspuns;
-                        //         getline(cin, raspuns);
-                        //         if (raspuns != "da") break;
-                        //     }
-                        
-                        //     while (true) {
-                        //         std::string medicament;
-                        //         cout << "Introduceti un medicament (sau scrie 'stop' pentru a termina): ";
-                        //         getline(cin, medicament);
-                        //         if (medicament == "stop") break;
-                        //         reteta.adaugaMedicament(medicament);
-                        //     }
-                        
-                        //     cout << "Reteta a fost actualizata cu succes!" << endl;
-                        //     break;
-                        // }
+                    
+                    case 7:
+                    std::cout << "\033[2J\033[1;1H";
+                    std::cout << "Multumesc ca ai folosit aplicatia!<3" << std::endl;
+                    return 0;
                         
                     default:
                     std::cout << "\033[2J\033[1;1H";
@@ -262,8 +237,8 @@ int main() {
                 std::cout << "4. Afiseaza detalii pacient" << std::endl;
                 std::cout << "5. Afiseaza detalii consultatie" << std::endl;//vezi consultatiile pacientului
                 //vezi retetele primite
-                std::cout << "6. Iesi din program" << std::endl;
-                std::cout << "7. Inapoi la meniul principal" << std::endl;
+                std::cout << "6. Inapoi la meniul principal" << std::endl;
+                std::cout << "7. Iesi din program" << std::endl;
                 std::cout << "Introduceti optiunea: ";
                 std::cin >> optiune;
 
@@ -357,42 +332,51 @@ int main() {
                         break;
                     }
                     case 5:{//detalii consulatie
-                        // std::string nume;
-                        // std::cout << "Numele pacientului pentru care doriti sa vedeti consultatiile: ";
-                        // cin >> nume;
-                        // Pacient* pacientGasit = spital.cautaPacient(nume);
-                        // if (!pacientGasit) {
-                        //     std::cout << "\033[2J\033[1;1H";
-                        //     std::cout << "Pacientul " << nume << " nu exista!" << endl;
-                        //     break;
-                        // }
-                        // std::cout << "\033[2J\033[1;1H";
-                        // std::cout << "Consultatiile pacientului " << nume << ":" << endl;
+                        std::string nume;
+                        std::cout << "Numele pacientului pentru care doriti sa vedeti consultatiile: ";
+                        std::cin >> nume;
+                        Pacient* pacientGasit = spital.cautaPacient(nume);
+                        if (!pacientGasit) {
+                            std::cout << "\033[2J\033[1;1H";
+                            std::cout << "Pacientul " << nume << " nu exista!" << std::endl;
+                            break;
+                        }
+                        std::cout << "\033[2J\033[1;1H";
+                        std::cout << "Consultatiile pacientului " << nume << ":" << std::endl<< std::endl;
 
-                        // vector<Consultatie> listaConsultatii = spital.getConsultatii();
-                        // bool gasit = false;
-                        // for (auto& consultatie : listaConsultatii) {
-                        //     if (consultatie.getPacient() == pacientGasit) {
-                        //         consultatie.afisareDetalii();
-                        //         gasit = true;
-                        //     }
-                        // }
+                        std::vector<Consultatie> listaConsultatii = spital.getConsultatii();
+                        bool gasit = false;
+                        for (auto& consultatie : listaConsultatii) {
+                            if (consultatie.getPacient() == pacientGasit) {
+                                consultatie.afisareDetalii();
+                                gasit = true;
+                            }
+                        }
 
-                        // if (!gasit) {
-                        //     std::cout << "Nu exista consultatii pentru acest pacient." << endl;
-                        // }
+                        std::cout<<std::endl<< "Retelele pacientului "<<nume<< " sunt: \n";
+                        for(auto& reteta: spital.getRetete()){
+                            if(reteta.getPacient()==pacientGasit){
+                                reteta.afisareReteta();
+                            }
+                        }
+
+                        if (!gasit) {
+                            std::cout << "Nu exista consultatii pentru acest pacient." << std::endl;
+                        }
 
                         break;
                     }
                     case 6:
-                    std::cout << "\033[2J\033[1;1H";
-                    std::cout << "Multumesc ca ai folosit aplicatia!<3" << std::endl;
-                        return 0;
-                    case 7:
-                    std::cout << "\033[2J\033[1;1H";
+                        std::cout << "\033[2J\033[1;1H";
                         inapoiLaMeniu = true;
                         loggedIn = false;
                         break;
+                    
+                    case 7:
+                    std::cout << "\033[2J\033[1;1H";
+                    std::cout << "Multumesc ca ai folosit aplicatia!<3" << std::endl;
+                        return 0;
+
                     default:
                     std::cout << "\033[2J\033[1;1H";
                     std::cout << "Optiune invalida! Te rog sa alegi o optiune valida." << std::endl;
