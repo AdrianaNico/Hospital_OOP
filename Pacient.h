@@ -11,7 +11,7 @@ class Pacient : public Persoana {
 private:
 std::vector<std::string> istoricMedical;
 
-public:
+public: 
     Pacient(std::string n, int v, std::string c);
 
     void adaugaConsultatie(std::string diagnostic);

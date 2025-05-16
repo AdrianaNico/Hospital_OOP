@@ -14,7 +14,7 @@ void Pacient::afisareDetalii() {
         std::cout << diag << "; ";
     }
     std::cout <<std:: endl; 
-}
+} 
 void Pacient::adaugaIstoricMedical(const std::string& i) {
     istoricMedical.push_back(i);
 }
