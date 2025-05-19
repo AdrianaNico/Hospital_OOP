@@ -1,5 +1,5 @@
-#ifndef PACIENT_H
-#define PACIENT_H
+#ifndef SECTIECHIRURGIE_H
+#define SECTIECHIRURGIE_H
 
 #include "Sectie.h"
 #include "Medic.h"
@@ -7,12 +7,11 @@
 #include <vector>
 
 class SectieChirurgie: public Sectie {
+private:
+    std::vector<Medic> mediciSectieChirurgie;
 public:
-    void afisareSectie() override {}
+    void afisareSectie() override;
+    void adaugaMedicSectieChirurgie(const Medic& medic);
+    void getMediciChirurgie() const;
 };
-
-std::vector<Medic> mediciSectieChirurgie;
-
-void adaugaMedicSectieChirurgie(const Medic& medic){}
-
-#endif // PACIENT_H
+#endif

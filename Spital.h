@@ -6,6 +6,10 @@
 #include "Consultatie.h"
 #include "Persoana.h"
 #include "Reteta.h"
+#include "Sectie.h"
+class SectieChirurgie;
+class SectieCardiologie;
+class SectiePediatrie;
 #include <vector>
 #include <string>
 #include <iostream>
@@ -16,7 +20,9 @@ private:
     std::vector<Pacient> pacienti;
     std::vector<Consultatie> consultatii;
     std::vector<Reteta> retete;
-
+    std::vector<SectieChirurgie*> sectieChirurgie;
+    std::vector<SectieCardiologie*> sectieCardiologie;
+    std::vector<SectiePediatrie*> sectiePediatrie;
 public:
     void adaugaMedic(Medic m);
  

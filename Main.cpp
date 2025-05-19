@@ -12,9 +12,16 @@
 #include <sstream> //pt istringstream
 #include <limits>//pt numeric_limits
 #include "Spital.h"
+#include "SectieCardiologie.h"
+#include "SectieChirurgie.h"
+#include "SectiePediatrie.h"
+
 
 int main() {
     Spital spital;
+    SectieCardiologie sectieCardiologie;
+    SectieChirurgie sectieChirurgie;
+    SectiePediatrie sectiePediatrie;
     bool ok=true;
     int optiune;
     std::string account;
@@ -59,12 +66,13 @@ int main() {
                 std::cout << "         ------SPITAL------" << std::endl;
                 std:: cout << "~~~~~~~~Bun venit in meniul " << account << "!~~~~~~~~" << std::endl;
                 std::cout << "1. Inregistreaza medic" << std::endl;
-                std::cout << "2. Afiseaza consultatii" << std::endl;
-                std::cout << "3. Afiseaza pacientii" << std::endl;
-                std::cout << "4. Afiseaza detalii pacient" << std::endl;// sa ii afisez si retetele
-                std::cout<< "5. Prescriere reteta"<<std::endl;
-                std::cout << "6. Inapoi la meniul principal" << std::endl;
-                std::cout << "7. Iesi din program" << std::endl;
+                std::cout << "2. Inregistreaza-te intr-o sectie" << std::endl;
+                std::cout << "3. Afiseaza consultatii" << std::endl;
+                std::cout << "4. Afiseaza pacientii" << std::endl;
+                std::cout << "5. Afiseaza detalii pacient" << std::endl;
+                std::cout<< "6. Prescriere reteta"<<std::endl;
+                std::cout << "7. Inapoi la meniul principal" << std::endl;
+                std::cout << "8. Iesi din program" << std::endl;
                 std::cout << "Introduceti optiunea: ";
                 std::cin >> optiune;
 
@@ -78,6 +86,7 @@ int main() {
 
                 switch (optiune) {
                     case 1: {//adauga medic
+                        
                         std::string nume;
                         int varsta;
                         std::string cnp;
@@ -97,7 +106,46 @@ int main() {
                         std::cout << "Medicul " << medic.getNumeMedic() << " a fost adaugat cu succes!" << std::endl;
                         break;
                     }
-                    case 2: {//afiseaza consultatii
+                    case 2:{//adauga in sectie
+                        std::string numeMedic;
+                        std::string sectie;
+                        Medic* medicGasit = nullptr;
+                        std::cout << "Introduceti numele medicului: ";
+                        std::cin.ignore();
+                        getline(std::cin, numeMedic);
+                        medicGasit = spital.cautaMedic(numeMedic);
+                        if(!medicGasit){
+                            std::cout << "\033[2J\033[1;1H";
+                            std::cout << "Medicul " << numeMedic << " nu exista!" << std::endl;
+                            break;
+                        }
+                        std::cout << "In ce sectie va inscrieti? (cardiologie - CD, chirurgie - CH, pediatrie - PS): ";
+                        std::getline(std::cin, sectie);
+                        for(auto& litera :sectie){
+                            litera = toupper(litera);
+                        }
+                        if(sectie == "CD"){
+                            sectieCardiologie.adaugaMedicSectieCardiologie(*medicGasit);  
+                            std::cout << "\033[2J\033[1;1H";
+                            std:: cout << "Medicul " <<medicGasit->getNumeMedic() << " a fost adaugat in sectia de cardiologie!" << std::endl;
+                        }
+                        else if(sectie == "CH"){
+                            sectieChirurgie.adaugaMedicSectieChirurgie(*medicGasit);
+                            std::cout << "\033[2J\033[1;1H";
+                            std:: cout << "Medicul " <<medicGasit->getNumeMedic() << " a fost adaugat in sectia de chirurgie!" << std::endl;
+                        }
+                        else if(sectie == "PS"){
+                            sectiePediatrie.adaugaMedicSectiePediatrie(*medicGasit);
+                            std::cout << "\033[2J\033[1;1H";
+                            std:: cout << "Medicul " <<medicGasit->getNumeMedic() << " a fost adaugat in sectia de pediatrie!" << std::endl;
+                        }
+                        else{
+                            std::cout << "\033[2J\033[1;1H";
+                            std:: cout << "Sectia nu exista!" << std::endl;
+                        }
+                    break;
+                    }
+                    case 3: {//afiseaza consultatii
                         std::string numeMedic;
                         std::cout << "Numele medicului pentru care doriti sa vedeti consultatiile: ";
                         std::cin >> numeMedic;
@@ -122,7 +170,7 @@ int main() {
                         std::cout << "\033[2J\033[1;1H";
                         break;
                     }
-                    case 3: {//afiseaza pacientii
+                    case 4: {//afiseaza pacientii
                         std:: string nume;
                         std::cout<<"Introduceti numele medicului: "<<std::endl;
                         std::cin.ignore();
@@ -152,7 +200,7 @@ int main() {
                         }
                         break;
                     }
-                    case 4:{
+                    case 5:{
                         std::string nume;
                         std::cout << "Introduceti numele pacientului: ";
                         std::cin>>nume;
@@ -174,7 +222,7 @@ int main() {
                         }
                         break;
                     }
-                    case 5:{//prescrie reteta
+                    case 6:{//prescrie reteta
                         std:: string nume_medic, nume_pacient;
                         std::vector<std::string> medicamente;
                         std::cout << "Introduceti numele dvs(medic): ";
@@ -212,13 +260,13 @@ int main() {
 
                         break;
                     }
-                    case 6:
+                    case 7:
                         std::cout << "\033[2J\033[1;1H";
                         inapoiLaMeniu = true;
                         loggedIn = false;
                         break;
                     
-                    case 7:
+                    case 8:
                     std::cout << "\033[2J\033[1;1H";
                     std::cout << "Multumesc ca ai folosit aplicatia!<3" << std::endl;
                     return 0;
@@ -233,7 +281,7 @@ int main() {
                 std::cout << "~~~~~~~~Bun venit in meniul " << account << "!~~~~~~~~" << std::endl;
                 std::cout << "1. Inregistreaza-te" << std::endl;
                 std::cout << "2. Programeaza consultatie" << std::endl;
-                std::cout << "3. Afiseaza medicii" << std::endl;
+                std::cout << "3. Afiseaza medicii" << std::endl;//sa vezi medicii pe sectii, alegi sectia, apoi vezi medicii
                 std::cout << "4. Afiseaza detalii pacient" << std::endl;
                 std::cout << "5. Afiseaza detalii consultatie" << std::endl;//vezi consultatiile pacientului
                 //vezi retetele primite

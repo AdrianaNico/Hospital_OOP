@@ -1,5 +1,5 @@
-#ifndef SPITAL_H
-#define SPITAL_H
+#ifndef SECTIE_H
+#define SECTIE_H
 
 class Sectie{
     public:
@@ -7,6 +7,6 @@ class Sectie{
     virtual ~Sectie() = default;
 };
 
-#endif // SPITAL_H
+#endif // SECTIE_H
 
 //interfata
