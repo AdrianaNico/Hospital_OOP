@@ -8,6 +8,8 @@
 
 class SectiePediatrie: public Sectie {
 public:
+    SectiePediatrie() {}
+    ~SectiePediatrie() {}
     void afisareSectie() override;
     void adaugaMedicSectiePediatrie(const Medic& medic);
     void getMediciPediatrie() const;

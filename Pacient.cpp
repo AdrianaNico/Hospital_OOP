@@ -2,6 +2,7 @@
 #include <iostream>
 
 Pacient::Pacient(std::string n, int v, std::string c) : Persoana(n, v, c) {}
+Pacient::~Pacient() {}
 
 void Pacient::adaugaConsultatie(std::string diagnostic) {
     istoricMedical.push_back(diagnostic);

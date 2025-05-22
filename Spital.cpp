@@ -56,3 +56,5 @@ bool Spital::ExistaConsultatie(std::string numeMedic, std::string numePacient){
     }
     return false;
 }
+Spital::~Spital() {
+}

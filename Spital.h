@@ -24,6 +24,8 @@ private:
     std::vector<SectieCardiologie*> sectieCardiologie;
     std::vector<SectiePediatrie*> sectiePediatrie;
 public:
+    Spital() = default;
+    ~Spital();
     void adaugaMedic(Medic m);
     void adaugaPacient(Pacient p);
     void adaugaConsultatie(Consultatie c);

@@ -13,7 +13,7 @@ private:
 
 public:
     Consultatie(Pacient* p, Medic* m, std::string d, std::string diag);
-    
+    ~Consultatie();
     void afisareDetalii();
     
     Medic* getMedic() const;

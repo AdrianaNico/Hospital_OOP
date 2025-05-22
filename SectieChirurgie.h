@@ -10,6 +10,8 @@ class SectieChirurgie: public Sectie {
 private:
     std::vector<Medic> mediciSectieChirurgie;
 public:
+    SectieChirurgie() {}
+    ~SectieChirurgie() {}
     void afisareSectie() override;
     void adaugaMedicSectieChirurgie(const Medic& medic);
     void getMediciChirurgie() const;

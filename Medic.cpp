@@ -1,6 +1,9 @@
 #include "Medic.h"
 #include <iostream>
 
+Medic::Medic(std::string n, int v, std::string c, std::string s) : Persoana(n, v, c), specializare(s) {}
+Medic::~Medic(){}
+
 void Medic::afisareDetalii() {
     std::cout << "Medic: " << nume << ", Specializare: " << specializare <<std:: endl;
     std::cout << "Pacienti: ";

@@ -12,8 +12,9 @@ private:
 std::vector<std::string> istoricMedical;
 
 public: 
+    Pacient();
     Pacient(std::string n, int v, std::string c);
-
+    ~Pacient();
     void adaugaConsultatie(std::string diagnostic);
 
     void afisareDetalii() override;

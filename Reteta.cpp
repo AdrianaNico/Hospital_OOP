@@ -7,7 +7,7 @@ Reteta::Reteta(Pacient* p, Medic* m, const std::vector<std::string>& meds)
     : pacient(p), medic(m), medicamente(meds) {
     id = ++nrReteta;
 }
-
+Reteta::~Reteta() {}
 void Reteta::afisareReteta() const {
     std::cout << "Reteta #" << id << "\n";
     for (const auto& med : medicamente)

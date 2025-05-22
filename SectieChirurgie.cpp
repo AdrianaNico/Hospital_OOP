@@ -2,6 +2,9 @@
 #include <iostream>
 #include <vector>
 
+SectieChirurgie::SectieChirurgie() {}
+SectieChirurgie::~SectieChirurgie() {}
+
 void SectieChirurgie:: afisareSectie(){
         std::cout << "Sectia Chirurgie" << std::endl;
 }

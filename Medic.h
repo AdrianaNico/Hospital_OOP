@@ -15,8 +15,8 @@ std::string specializare;
 std::vector<Pacient*> pacienti;  // Folosim vector de pointeri la Pacient
 
 public:
-    Medic(std::string n, int v, std::string c, std::string s) : Persoana(n, v, c), specializare(s) {}
-
+    Medic(std::string n, int v, std::string c, std::string s);
+    ~Medic();
     void adaugaPacient(Pacient* pacient);
 
     void afisareDetalii() override;

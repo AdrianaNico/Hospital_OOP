@@ -8,6 +8,8 @@
 
 class SectieCardiologie: public Sectie {
 public:
+    SectieCardiologie();// constructor implicit
+    ~SectieCardiologie() override;
     void afisareSectie() override;
     void adaugaMedicSectieCardiologie(const Medic& medic);
     void getMediciCardiologie() const;

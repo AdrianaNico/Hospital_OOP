@@ -15,6 +15,7 @@ struct Reteta {
     std::vector<std::string> medicamente;
 
     Reteta(Pacient* p, Medic* m, const std::vector<std::string>& meds);
+    ~Reteta();
     void afisareReteta() const;
     void adaugaMedicament(const std::string& med);
     const std::vector<std::string>& getMedicamente() const;
