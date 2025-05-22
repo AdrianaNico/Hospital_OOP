@@ -1,5 +1,6 @@
 #include "Consultatie.h"
 #include "Medic.h"
+#include "Spital.h"
 #include <iostream>
 
  

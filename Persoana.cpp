@@ -22,3 +22,4 @@ bool Persoana::isValidCNP(const std::string& cnp){
     return true;
 }
 
+

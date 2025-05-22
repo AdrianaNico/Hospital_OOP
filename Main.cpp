@@ -14,8 +14,6 @@
 #include "SectieChirurgie.h"
 #include "SectiePediatrie.h"
 
-// setter cnp, sa aiba 13 cifre si sa inceapa cu 1,2,5 sau 6
-//sa pot scrie reteta doar daca exista consultatie intre medic si pacient
 //redefinire
 int main() {
     Spital spital;
@@ -100,13 +98,13 @@ int main() {
 
                 switch (optiune) {
                     case 1: {//adauga medic
-                        
+
                         std::string nume;
                         int varsta;
                         std::string cnp;
                         std::string specializare;
                         std::cout << "Introduceti numele medicului: ";
-                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// sa nu se ia in considerare cin-ul precedent(optiune)
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         getline(std::cin, nume);
                         std::cout << "Introduceti varsta medicului: ";
                         std::cin >> varsta;
@@ -124,8 +122,9 @@ int main() {
                                 clearScreen();
                                 std::cout << "CNP invalid! Te rog sa introduci un CNP valid: ";
                                 std::cin >> cnp;
+                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             }
-                        }// SA SE AFISEZE MEDICUL A FOST ADUGAT CU SUCCES DUPA CE CNP UL NU ESTE INTRODUS CUM TREBUIE
+                        }
                         Medic medic(nume, varsta, cnp, specializare);
                         spital.adaugaMedic(medic);
                         clearScreen();
@@ -297,21 +296,29 @@ int main() {
                             std::cin.get();
                             break;
                         }
-                        std::cout<<"Introduceti medicamentele prescrise (separati prin spatiu): ";
-                        std::string medicamente_input;
-                        getline(std::cin, medicamente_input);
-                        std::istringstream ss(medicamente_input);// trateaza stringul ca pe un stream, adica vede cuvintele ca fiind separate prin spatiu
+                        if(!spital.ExistaConsultatie(nume_medic, nume_pacient)){
+                            std::cout << "Nu exista consultatie intre medicul " << nume_medic << " si pacientul " << nume_pacient << std::endl;
+                            std::cout << "Apasa Enter pentru a continua...";
+                            std::cin.get();
+                        }else{
+                            clearScreen();
+                            std::cout<<"Introduceti medicamentele prescrise (separati prin spatiu): ";
+                            std::string medicamente_input;
+                            getline(std::cin, medicamente_input);
+                            std::istringstream ss(medicamente_input);// trateaza stringul ca pe un stream, adica vede cuvintele ca fiind separate prin spatiu
 
-                        std::string medicament;
-                        while(ss >>medicament){//se iau cuvintele pe rand din ss si se pun in medicament
-                            medicamente.push_back(medicament);
+                            std::string medicament;
+                            while(ss >>medicament){//se iau cuvintele pe rand din ss si se pun in medicament
+                                medicamente.push_back(medicament);
+                            }
+                            Reteta reteta(pacientGasit, medicGasit, medicamente);
+                            spital.adaugaReteta(reteta);
+                            clearScreen();
+                            std::cout << "Reteta a fost creata cu succes!" << std::endl;
+                            std::cout << "Apasa Enter pentru a continua...";
+                            std::cin.get();
                         }
-                        Reteta reteta(pacientGasit, medicGasit, medicamente);
-                        spital.adaugaReteta(reteta);
-                        clearScreen();
-                        std::cout << "Reteta a fost creata cu succes!" << std::endl;
-                        std::cout << "Apasa Enter pentru a continua...";
-                        std::cin.get();
+                        
                         break;
                     }
                     case 7:
@@ -368,7 +375,18 @@ int main() {
                         std::cout << "Introduceti CNP-ul pacientului: ";
                         std::cin >> cnp;
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
+                        bool cnpValid = false;
+                        while(!cnpValid){
+                            if(Persoana::isValidCNP(cnp)){
+                                cnpValid = true;
+                            }
+                            else{
+                                clearScreen();
+                                std::cout << "CNP invalid! Te rog sa introduci un CNP valid: ";
+                                std::cin >> cnp;
+                                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            }
+                        }
                         Pacient pacient(nume, varsta, cnp);
                         spital.adaugaPacient(pacient);
                         clearScreen();

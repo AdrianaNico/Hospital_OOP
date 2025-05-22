@@ -46,3 +46,13 @@ Medic* Spital::cautaMedic(std::string nume) {
             return &medic;
     return nullptr;
 }
+
+bool Spital::ExistaConsultatie(std::string numeMedic, std::string numePacient){
+    const std::vector<Consultatie> consultatii = getConsultatii();
+    for(const auto& consultatie: consultatii){
+        if(consultatie.getMedic()->getNumeMedic() == numeMedic && consultatie.getPacient()->getNumePacient() == numePacient){
+            return true;
+        }
+    }
+    return false;
+}

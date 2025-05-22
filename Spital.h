@@ -25,24 +25,19 @@ private:
     std::vector<SectiePediatrie*> sectiePediatrie;
 public:
     void adaugaMedic(Medic m);
- 
     void adaugaPacient(Pacient p);
-
     void adaugaConsultatie(Consultatie c);
-
     void adaugaReteta(Reteta r);
-
     void afisareConsultatii();
+    bool ExistaConsultatie(std::string numeMedic, std::string numePacient);
 
     std::vector<Medic>& getMedici();
-
     std::vector<Consultatie>& getConsultatii();
-    
     std::vector<Reteta>& getRetete();
-    
     Pacient* cautaPacient(std::string nume);
-
     Medic* cautaMedic(std::string nume);
+
+
 };
 
 #endif // SPITAL_H
