@@ -10,7 +10,6 @@ void SectieCardiologie::adaugaMedicSectieCardiologie(const Medic& medic){
     mediciSectieCardiologie.push_back(medic);
 }
 void SectieCardiologie:: getMediciCardiologie() const {
-        std::cout<< "Medici sectia cardiologie: \n";
         for(auto&medic : mediciSectieCardiologie){
             std::cout<<medic.getNumeMedic()<<std::endl;
         }

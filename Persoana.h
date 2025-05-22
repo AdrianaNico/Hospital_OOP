@@ -17,7 +17,7 @@ public:
     Persoana(std::string n, int v,std:: string c);
     virtual void afisareDetalii() = 0;
     virtual void afisareConsultatii(const std::vector<Consultatie>& consultatii, Medic* medic) = 0;
-
+    static bool isValidCNP(const std::string& cnp);
     std::string getCNP(); 
 };
 

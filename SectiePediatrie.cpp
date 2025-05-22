@@ -8,7 +8,6 @@ void SectiePediatrie:: afisareSectie(){
 }
 
 void SectiePediatrie:: getMediciPediatrie() const {
-        std::cout<< "Medici sectia pediatrie: \n";
         for(auto&medic : mediciSectiePediatrie){
             std::cout<<medic.getNumeMedic()<<std::endl;
         }

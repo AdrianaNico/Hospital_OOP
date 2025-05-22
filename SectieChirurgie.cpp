@@ -11,7 +11,6 @@ void SectieChirurgie:: adaugaMedicSectieChirurgie(const Medic& medic){
 } 
 
 void SectieChirurgie:: getMediciChirurgie() const {
-        std::cout<< "Medici sectia chirurgie: \n";
         for(auto&medic : mediciSectieChirurgie){
             std::cout<<medic.getNumeMedic()<<std::endl;
         }
