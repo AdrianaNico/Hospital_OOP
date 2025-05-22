@@ -26,6 +26,7 @@ public:
  
     std::string getNumePacient() const;
 
+    friend std::ostream& operator<<(std::ostream& out, const Pacient& p);//supraincarcarea operatorului << pentru a afisa detaliile pacientului
 };
 
 #endif // PACIENT_H

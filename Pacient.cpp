@@ -8,14 +8,27 @@ void Pacient::adaugaConsultatie(std::string diagnostic) {
     istoricMedical.push_back(diagnostic);
 }
 
+// void Pacient::afisareDetalii() {
+//     std::cout << "Pacient: " << nume << ", Varsta: " << varsta << ", CNP: " << CNP << std::endl;
+//     std::cout << "Istoric medical: ";
+//     for (const auto& diag : istoricMedical) {
+//         std::cout << diag << "; ";
+//     }
+//     std::cout <<std:: endl; 
+// } 
 void Pacient::afisareDetalii() {
-    std::cout << "Pacient: " << nume << ", Varsta: " << varsta << ", CNP: " << CNP << std::endl;
-    std::cout << "Istoric medical: ";
-    for (const auto& diag : istoricMedical) {
-        std::cout << diag << "; ";
+    std::cout << *this << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& out, const Pacient& p) {
+    out << "Pacient: " << p.nume << ", Varsta: " << p.varsta << ", CNP: " << p.CNP << "\n";
+    out << "Istoric medical: ";
+    for (const auto& diag : p.istoricMedical) {
+        out << diag << "; ";
     }
-    std::cout <<std:: endl; 
-} 
+    return out;
+}
+
 void Pacient::adaugaIstoricMedical(const std::string& i) {
     istoricMedical.push_back(i);
 }

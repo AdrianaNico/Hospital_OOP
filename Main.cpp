@@ -14,7 +14,10 @@
 #include "SectieChirurgie.h"
 #include "SectiePediatrie.h"
 
-//redefinire
+//supraincarcare operatori
+//supraincarcarea functiilor
+
+
 int main() {
     Spital spital;
     SectieCardiologie sectieCardiologie;
@@ -256,7 +259,7 @@ int main() {
                             break;
                         }
                         clearScreen();
-                        pacientGasit->afisareDetalii();
+                        std::cout << *pacientGasit;
                         bool reteteGasite = false;
                         std::cout<<"Retetele pacientului: \n";
                         for(auto& reteta: spital.getRetete()){
@@ -477,7 +480,7 @@ int main() {
                             break;
                         }
                         clearScreen();
-                        pacientGasit->afisareDetalii();
+                        std::cout << *pacientGasit;
                         std::cout << "Apasa Enter pentru a continua...";
                         std::cin.get();
                         break;
