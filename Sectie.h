@@ -3,7 +3,7 @@
 
 class Sectie{
     public:
-    virtual void afisareSectie() = 0;
+    virtual void AfisareSectie() = 0;
     virtual ~Sectie() = default;
 };
 

@@ -1,41 +1,42 @@
-#include "Medic.h"
+#include "medic.h"
 #include <iostream>
 
-Medic::Medic(std::string n, int v, std::string c, std::string s) : Persoana(n, v, c), specializare(s) {}
+Medic::Medic(std::string n, int v, std::string c, std::string s) : Persoana(n, v, c), m_specializare(s) {}
 Medic::~Medic(){}
 
-void Medic::afisareDetalii() {
-    std::cout << "Medic: " << nume << ", Specializare: " << specializare <<std:: endl;
+void Medic::AfisareDetalii() {
+    std::cout << "Medic: " << m_nume << ", Specializare: " << m_specializare <<std:: endl;
     std::cout << "Pacienti: ";
-    for (const auto& pacient : pacienti) {
-        std::cout << pacient->getNumePacient() << " -> ";
-        for (const auto& diag : pacient->getIstoricMedical()) {
+    for (const auto& pacient : m_pacienti) {
+        std::cout << pacient->GetNumePacient() << " -> ";
+        for (const auto& diag : pacient->GetIstoricMedical()) {
             std:: cout << diag << ", ";
         }
     }
     std::cout << std::endl;
 }
 
-void Medic::adaugaPacient(Pacient* pacient) {
-    pacienti.push_back(pacient);
+void Medic::AdaugaPacient(Pacient* pacient) {
+    m_pacienti.push_back(pacient);
 }
-void Medic::afisareConsultatii(const std::vector<Consultatie>& consultatii, Medic* medic) {
+
+void Medic::AfisareConsultatii(const std::vector<Consultatie>& consultatii, Medic* medic) {
     if (consultatii.empty()) {
         std:: cout << "Nu exista consultatii." << std::endl;
         return;
     } 
     for (auto& consultatie : consultatii) {
-        if (consultatie.getMedic()->getNumeMedic() == medic->getNumeMedic()) {
-            std::cout << "Pacient: " << consultatie.getPacient()->getNumePacient()
-                 << " in data de " << consultatie.getData() << std::endl;
+        if (consultatie.GetMedic()->GetNumeMedic() == medic->GetNumeMedic()) {
+            std::cout << "Pacient: " << consultatie.GetPacient()->GetNumePacient()
+                 << " in data de " << consultatie.GetData() << std::endl;
         }
     }
 }
 
-std::string Medic::getNumeMedic() const {
-    return nume;
-}
-std::string Medic::getSpecializare() const {
-    return specializare;
+std::string Medic::GetNumeMedic() const {
+    return m_nume;
 }
 
+std::string Medic::GetSpecializare() const {
+    return m_specializare;
+}

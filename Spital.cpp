@@ -1,60 +1,61 @@
-#include "Spital.h"
+#include "spital.h"
 
-void Spital::adaugaMedic(Medic m) {
-    medici.push_back(m);
-}
-
-void Spital::adaugaPacient(Pacient p) {
-    pacienti.push_back(p);
-}
- 
-void Spital::adaugaConsultatie(Consultatie c) {
-    consultatii.push_back(c);
+void Spital::AdaugaMedic(Medic m) {
+    m_medici.push_back(m);
 }
 
-void Spital::adaugaReteta(Reteta r) {
-    retete.push_back(r);
+void Spital::AdaugaPacient(Pacient p) {
+    m_pacienti.push_back(p);
 }
 
-void Spital::afisareConsultatii() {
-    for (auto& c : consultatii)
-        c.afisareDetalii();
-}
- 
-std::vector<Medic>& Spital::getMedici() {
-    return medici;
+void Spital::AdaugaConsultatie(Consultatie c) {
+    m_consultatii.push_back(c);
 }
 
-std::vector<Consultatie>& Spital::getConsultatii() {
-    return consultatii;
+void Spital::AdaugaReteta(Reteta r) {
+    m_retete.push_back(r);
 }
 
-std::vector<Reteta>& Spital:: getRetete() {
-    return retete;
+void Spital::AfisareConsultatii() {
+    for (auto& c : m_consultatii)
+        c.AfisareDetalii();
 }
 
-Pacient* Spital::cautaPacient(std::string nume) {
-    for (auto& pacient : pacienti)
-        if (pacient.getNumePacient() == nume)
+std::vector<Medic>& Spital::GetMedici() {
+    return m_medici;
+}
+
+std::vector<Consultatie>& Spital::GetConsultatii() {
+    return m_consultatii;
+}
+
+std::vector<Reteta>& Spital::GetRetete() {
+    return m_retete;
+}
+
+Pacient* Spital::CautaPacient(std::string nume) {
+    for (auto& pacient : m_pacienti)
+        if (pacient.GetNumePacient() == nume)
             return &pacient;
     return nullptr;
 }
 
-Medic* Spital::cautaMedic(std::string nume) {
-    for (auto& medic : medici)
-        if (medic.getNumeMedic() == nume)
+Medic* Spital::CautaMedic(std::string nume) {
+    for (auto& medic : m_medici)
+        if (medic.GetNumeMedic() == nume)
             return &medic;
     return nullptr;
 }
 
-bool Spital::ExistaConsultatie(std::string numeMedic, std::string numePacient){
-    const std::vector<Consultatie> consultatii = getConsultatii();
-    for(const auto& consultatie: consultatii){
-        if(consultatie.getMedic()->getNumeMedic() == numeMedic && consultatie.getPacient()->getNumePacient() == numePacient){
+bool Spital::ExistaConsultatie(std::string numeMedic, std::string numePacient) {
+    const std::vector<Consultatie>& consultatii = GetConsultatii();
+    for (const auto& consultatie : consultatii) {
+        if (consultatie.GetMedic()->GetNumeMedic() == numeMedic &&
+            consultatie.GetPacient()->GetNumePacient() == numePacient) {
             return true;
         }
     }
     return false;
 }
-Spital::~Spital() {
-}
+
+Spital::~Spital() {}

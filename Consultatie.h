@@ -1,24 +1,24 @@
 #ifndef CONSULTATIE_H
 #define CONSULTATIE_H
 
-#include "Pacient.h"
+#include "pacient.h"
 class Medic;
 
 class Consultatie {
 private:
-    Pacient* pacient;
-    Medic* medic;
-    std::string data;
-    std::string diagnostic;
+    Pacient* m_pacient;
+    Medic* m_medic;
+    std::string m_data;
+    std::string m_diagnostic;
 
 public:
     Consultatie(Pacient* p, Medic* m, std::string d, std::string diag);
     ~Consultatie();
-    void afisareDetalii();
+    void AfisareDetalii();
     
-    Medic* getMedic() const;
-    Pacient* getPacient() const;
-    std::string getData() const;
+    Medic* GetMedic() const;
+    Pacient* GetPacient() const;
+    std::string GetData() const;
 };
 
 #endif // CONSULTATIE_H

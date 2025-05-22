@@ -3,24 +3,24 @@
 
 #include <string>
 #include <vector>
-#include "Medic.h"
-#include "Pacient.h"
+#include "medic.h"
+#include "pacient.h"
 
 struct Reteta {
-    static int nrReteta;
+    static int m_nr_reteta;
 
-    int id;
-    Pacient* pacient;
-    Medic* medic;
-    std::vector<std::string> medicamente;
+    int m_id;
+    Pacient* m_pacient;
+    Medic* m_medic;
+    std::vector<std::string> m_medicamente;
 
     Reteta(Pacient* p, Medic* m, const std::vector<std::string>& meds);
     ~Reteta();
-    void afisareReteta() const;
-    void adaugaMedicament(const std::string& med);
-    const std::vector<std::string>& getMedicamente() const;
-    Pacient* getPacient() const;
+
+    void AfisareReteta() const;
+    void AdaugaMedicament(const std::string& med);
+    const std::vector<std::string>& GetMedicamente() const;
+    Pacient* GetPacient() const;
 };
- 
+
 #endif // RETETA_H
- 

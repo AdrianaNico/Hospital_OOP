@@ -1,7 +1,7 @@
 // Folosim #include doar acolo unde chiar avem nevoie de corpul complet al clasei (ex: când apelăm metode sau accesăm membri).
 // Folosim class NumeClasa; acolo unde avem doar pointeri sau referințe, și nu apelăm metode.
 
-//a se rula cu: g++ Main.cpp Consultatie.cpp Medic.cpp Pacient.cpp Persoana.cpp Reteta.cpp Spital.cpp SectieCardiologie.cpp SectieChirurgie.cpp SectiePediatrie.cpp -o main.exe
+//a se rula cu: g++ main.cpp consultatie.cpp medic.cpp pacient.cpp persoana.cpp reteta.cpp spital.cpp sectie_cardiologie.cpp sectie_chirurgie.cpp sectie_pediatrie.cpp -o main.exe
 
 #include <iostream>
 #include <cctype> //pt toupper
@@ -9,10 +9,10 @@
 #include <vector>
 #include <sstream> //pt istringstream
 #include <limits>//pt numeric_limits
-#include "Spital.h"
-#include "SectieCardiologie.h"
-#include "SectieChirurgie.h"
-#include "SectiePediatrie.h"
+#include "spital.h"
+#include "sectie_cardiologie.h"
+#include "sectie_chirurgie.h"
+#include "sectie_pediatrie.h"
 
 //supraincarcare operatori
 //supraincarcarea functiilor
@@ -20,18 +20,18 @@
 
 int main() {
     Spital spital;
-    SectieCardiologie sectieCardiologie;
-    SectieChirurgie sectieChirurgie;
-    SectiePediatrie sectiePediatrie;
+    SectieCardiologie sectie_cardiologie;
+    SectieChirurgie sectie_chirurgie;
+    SectiePediatrie sectie_pediatrie;
 
 
     bool ok=true;
     int optiune;
     std::string account;
-    bool loggedIn=false;
-    bool inapoiLaMeniu=false;
+    bool logged_in=false;
+    bool inapoi_la_meniu=false;
 
-    auto clearScreen = []() {//functie lambda pt curatarea terminalului
+    auto clear_screen = []() {//functie lambda pt curatarea terminalului
 #ifdef _WIN32
         system("cls");//pt Windows
 #else
@@ -41,7 +41,7 @@ int main() {
     };
     while (true) {
         do {
-            clearScreen();
+            clear_screen();
             std::cout << "         ------SPITAL------" << std::endl;
             std::cout << "Ca ce vrei sa te loghezi?" << std::endl;
             std::cout << "1. Medic [M]" << std::endl;
@@ -54,27 +54,27 @@ int main() {
 
             switch (toupper(account[0])) {
                 case 'M':
-                    loggedIn = true;
+                    logged_in = true;
                     account = "medicului";
                     break;
                 case 'P':
-                    loggedIn = true;
+                    logged_in = true;
                     account = "pacientului";
                     break;
                 default:
-                clearScreen();
+                clear_screen();
                 std::cout << "Cont invalid! Te rog sa alegi M (medic) sau P (pacient)." << std::endl;
                 std::cout << "Apasa Enter pentru a continua...";
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     break;
             }
 
-        } while (!loggedIn);
+        } while (!logged_in);
 
-        inapoiLaMeniu = false;
+        inapoi_la_meniu = false;
 
-        while (!inapoiLaMeniu) {
-            clearScreen();
+        while (!inapoi_la_meniu) {
+            clear_screen();
             if (account == "medicului") {
                 std::cout << "         ------SPITAL------" << std::endl;
                 std:: cout << "~~~~~~~~Bun venit in meniul " << account << "!~~~~~~~~" << std::endl;
@@ -92,7 +92,7 @@ int main() {
                 if (std::cin.fail()) {//verifica daca valoarea primta este un int
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    clearScreen();
+                    clear_screen();
                     std::cout << "Optiune invalida! Te rog sa introduci un numar valid." << std::endl;
                     std::cout << "Apasa Enter pentru a continua...";
                     std::cin.get();//asteapta sa apesi enter
@@ -116,37 +116,37 @@ int main() {
                         std::cout << "Introduceti specializarea medicului: ";
                         std::cin.ignore();
                         getline(std::cin, specializare);
-                        bool cnpValid = false;
-                        while(!cnpValid){
-                            if(Persoana::isValidCNP(cnp)){
-                                cnpValid = true;
+                        bool cnp_valid = false;
+                        while(!cnp_valid){
+                            if(Persoana::IsValidCnp(cnp)){
+                                cnp_valid = true;
                             }
                             else{
-                                clearScreen();
+                                clear_screen();
                                 std::cout << "CNP invalid! Te rog sa introduci un CNP valid: ";
                                 std::cin >> cnp;
                                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             }
                         }
                         Medic medic(nume, varsta, cnp, specializare);
-                        spital.adaugaMedic(medic);
-                        clearScreen();
-                        std::cout << "Medicul " << medic.getNumeMedic() << " a fost adaugat cu succes!" << std::endl;
+                        spital.AdaugaMedic(medic);
+                        clear_screen();
+                        std::cout << "Medicul " << medic.GetNumeMedic() << " a fost adaugat cu succes!" << std::endl;
                         std::cout << "Apasa Enter pentru a continua...";
                         std::cin.get();
                         break;
                     }
                     case 2:{//adauga in sectie
-                        std::string numeMedic;
+                        std::string nume_medic;
                         std::string sectie;
-                        Medic* medicGasit = nullptr;
+                        Medic* medic_gasit = nullptr;
                         std::cout << "Introduceti numele medicului: ";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        getline(std::cin, numeMedic);
-                        medicGasit = spital.cautaMedic(numeMedic);
-                        if(!medicGasit){
-                            clearScreen();
-                            std::cout << "Medicul " << numeMedic << " nu exista!" << std::endl;
+                        getline(std::cin, nume_medic);
+                        medic_gasit = spital.CautaMedic(nume_medic);
+                        if(!medic_gasit){
+                            clear_screen();
+                            std::cout << "Medicul " << nume_medic << " nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                             break;
@@ -157,28 +157,28 @@ int main() {
                             litera = toupper(litera);
                         }
                         if(sectie == "CD"){
-                            sectieCardiologie.adaugaMedicSectieCardiologie(*medicGasit);  
-                            clearScreen();
-                            std:: cout << "Medicul " <<medicGasit->getNumeMedic() << " a fost adaugat in sectia de cardiologie!" << std::endl;
+                            sectie_cardiologie.AdaugaMedicSectieCardiologie(*medic_gasit);  
+                            clear_screen();
+                            std:: cout << "Medicul " <<medic_gasit->GetNumeMedic() << " a fost adaugat in sectia de cardiologie!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                         }
                         else if(sectie == "CH"){
-                            sectieChirurgie.adaugaMedicSectieChirurgie(*medicGasit);
-                            clearScreen();
-                            std:: cout << "Medicul " <<medicGasit->getNumeMedic() << " a fost adaugat in sectia de chirurgie!" << std::endl;
+                            sectie_chirurgie.AdaugaMedicSectieChirurgie(*medic_gasit);
+                            clear_screen();
+                            std:: cout << "Medicul " <<medic_gasit->GetNumeMedic() << " a fost adaugat in sectia de chirurgie!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                         }
                         else if(sectie == "PD"){
-                            sectiePediatrie.adaugaMedicSectiePediatrie(*medicGasit);
-                            clearScreen();
-                            std:: cout << "Medicul " <<medicGasit->getNumeMedic() << " a fost adaugat in sectia de pediatrie!" << std::endl;
+                            sectie_pediatrie.AdaugaMedicSectiePediatrie(*medic_gasit);
+                            clear_screen();
+                            std:: cout << "Medicul " <<medic_gasit->GetNumeMedic() << " a fost adaugat in sectia de pediatrie!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                         }
                         else{
-                            clearScreen();
+                            clear_screen();
                             std:: cout << "Sectia nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
@@ -187,27 +187,27 @@ int main() {
                     break;
                     }
                     case 3: {//afiseaza consultatii
-                        std::string numeMedic;
+                        std::string nume_medic;
                         std::cout << "Numele medicului pentru care doriti sa vedeti consultatiile: ";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        getline(std::cin, numeMedic);
-                        std::vector<Medic>& listaMedici = spital.getMedici();
-                        Medic* medicGasit = nullptr;
-                        for (auto& medic : listaMedici) {
-                            if (medic.getNumeMedic() == numeMedic) {
-                                medicGasit = &medic;
+                        getline(std::cin, nume_medic);
+                        std::vector<Medic>& lista_medici = spital.GetMedici();
+                        Medic* medic_gasit = nullptr;
+                        for (auto& medic : lista_medici) {
+                            if (medic.GetNumeMedic() == nume_medic) {
+                                medic_gasit = &medic;
                                 break;
                             }
                         }
-                        if (!medicGasit) {
-                            clearScreen();
+                        if (!medic_gasit) {
+                            clear_screen();
                             std::cout << std::endl << "Medic inexistent!" << std::endl << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                             break;
                         }
-                        clearScreen();
-                        medicGasit->afisareConsultatii(spital.getConsultatii(), medicGasit);
+                        clear_screen();
+                        medic_gasit->AfisareConsultatii(spital.GetConsultatii(), medic_gasit);
                         std::cout<< "Apasa Enter pentru a continua...";
                         std::cin.get();
                         break;
@@ -217,28 +217,28 @@ int main() {
                         std::cout<<"Introduceti numele medicului: "<<std::endl;
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         getline(std::cin, nume);
-                        Medic* medicGasit = spital.cautaMedic(nume);
-                        if (!medicGasit) {
-                            clearScreen();
+                        Medic* medic_gasit = spital.CautaMedic(nume);
+                        if (!medic_gasit) {
+                            clear_screen();
                             std::cout << "Medicul " << nume << " nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                             break;
                         }
-                        clearScreen();
-                        std::vector<Consultatie>& listaConsultatii = spital.getConsultatii();
-                        bool pacientiGasiti = false;
+                        clear_screen();
+                        std::vector<Consultatie>& lista_consultatii = spital.GetConsultatii();
+                        bool pacienti_gasiti = false;
                         std::cout << "Pacientii medicului "<<nume<< " sunt: "<<std::endl;
-                        for(auto& consultatie: listaConsultatii){
-                            Medic* medic = consultatie.getMedic();
-                            Pacient* pacient = consultatie.getPacient();
-                            if (medic && pacient && medic->getNumeMedic() == nume) {
-                                pacient->afisareDetalii();
-                                pacientiGasiti = true;
+                        for(auto& consultatie: lista_consultatii){
+                            Medic* medic = consultatie.GetMedic();
+                            Pacient* pacient = consultatie.GetPacient();
+                            if (medic && pacient && medic->GetNumeMedic() == nume) {
+                                pacient->AfisareDetalii();
+                                pacienti_gasiti = true;
                                 std::cout<<std::endl<<std::endl;
                             }
                         }
-                        if (!pacientiGasiti) {
+                        if (!pacienti_gasiti) {
                             std::cout << "Nu exista pacienti pentru acest medic." << std::endl;
                         }
                         std::cout << "Apasa Enter pentru a continua...";
@@ -250,25 +250,25 @@ int main() {
                         std::cout << "Introduceti numele pacientului: ";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         getline(std::cin, nume);
-                        Pacient* pacientGasit = spital.cautaPacient(nume);
-                        if (!pacientGasit) {
-                            clearScreen();
+                        Pacient* pacient_gasit = spital.CautaPacient(nume);
+                        if (!pacient_gasit) {
+                            clear_screen();
                             std::cout << "Pacientul " << nume << " nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                             break;
                         }
-                        clearScreen();
-                        std::cout << *pacientGasit;
-                        bool reteteGasite = false;
+                        clear_screen();
+                        std::cout << *pacient_gasit;
+                        bool retete_gasite = false;
                         std::cout<<"Retetele pacientului: \n";
-                        for(auto& reteta: spital.getRetete()){
-                            if(reteta.getPacient()->getNumePacient()==pacientGasit->getNumePacient()){
-                                reteteGasite = true;
-                                reteta.afisareReteta();
+                        for(auto& reteta: spital.GetRetete()){
+                            if(reteta.GetPacient()->GetNumePacient()==pacient_gasit->GetNumePacient()){
+                                retete_gasite = true;
+                                reteta.AfisareReteta();
                             }
                         }
-                        if(!reteteGasite){
+                        if(!retete_gasite){
                             std::cout << "Nu exista retete pentru acest pacient." << std::endl;
                         }
                         std::cout << "Apasa Enter pentru a continua...";
@@ -283,17 +283,17 @@ int main() {
                         getline(std::cin, nume_medic);
                         std::cout << "Introduceti numele pacientului: ";
                         getline(std::cin, nume_pacient);
-                        Medic* medicGasit = spital.cautaMedic(nume_medic);
-                        Pacient* pacientGasit = spital.cautaPacient(nume_pacient);
-                        if (!medicGasit) {
-                            clearScreen();
+                        Medic* medic_gasit = spital.CautaMedic(nume_medic);
+                        Pacient* pacient_gasit = spital.CautaPacient(nume_pacient);
+                        if (!medic_gasit) {
+                            clear_screen();
                             std::cout << "Medicul " << nume_medic << " nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                             break;
                         }
-                        if (!pacientGasit) {
-                            clearScreen();
+                        if (!pacient_gasit) {
+                            clear_screen();
                             std::cout << "Pacientul " << nume_pacient << " nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
@@ -304,7 +304,7 @@ int main() {
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                         }else{
-                            clearScreen();
+                            clear_screen();
                             std::cout<<"Introduceti medicamentele prescrise (separati prin spatiu): ";
                             std::string medicamente_input;
                             getline(std::cin, medicamente_input);
@@ -314,9 +314,9 @@ int main() {
                             while(ss >>medicament){//se iau cuvintele pe rand din ss si se pun in medicament
                                 medicamente.push_back(medicament);
                             }
-                            Reteta reteta(pacientGasit, medicGasit, medicamente);
-                            spital.adaugaReteta(reteta);
-                            clearScreen();
+                            Reteta reteta(pacient_gasit, medic_gasit, medicamente);
+                            spital.AdaugaReteta(reteta);
+                            clear_screen();
                             std::cout << "Reteta a fost creata cu succes!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
@@ -325,9 +325,9 @@ int main() {
                         break;
                     }
                     case 7:
-                        clearScreen();
-                        inapoiLaMeniu = true;
-                        loggedIn = false;
+                        clear_screen();
+                        inapoi_la_meniu = true;
+                        logged_in = false;
                         break;
                     
                     case 8:
@@ -336,7 +336,7 @@ int main() {
                     return 0;
                         
                     default:
-                    clearScreen();
+                    clear_screen();
                     std::cout << "Optiune invalida! Te rog sa alegi o optiune valida." << std::endl;
                         break;
                 }
@@ -358,7 +358,7 @@ int main() {
                 if (std::cin.fail()) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    clearScreen();
+                    clear_screen();
                     std::cout << "Optiune invalida! Te rog sa introduci un numar valid." << std::endl;
                     std::cout << "Apasa Enter pentru a continua...";
                     std::cin.get();
@@ -378,46 +378,46 @@ int main() {
                         std::cout << "Introduceti CNP-ul pacientului: ";
                         std::cin >> cnp;
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        bool cnpValid = false;
-                        while(!cnpValid){
-                            if(Persoana::isValidCNP(cnp)){
-                                cnpValid = true;
+                        bool cnp_valid = false;
+                        while(!cnp_valid){
+                            if(Persoana::IsValidCnp(cnp)){
+                                cnp_valid = true;
                             }
                             else{
-                                clearScreen();
+                                clear_screen();
                                 std::cout << "CNP invalid! Te rog sa introduci un CNP valid: ";
                                 std::cin >> cnp;
                                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             }
                         }
                         Pacient pacient(nume, varsta, cnp);
-                        spital.adaugaPacient(pacient);
-                        clearScreen();
-                        std::cout<<"Pacientul "<<pacient.getNumePacient()<< " a fost adaugat cu succes!"<<std::endl;
+                        spital.AdaugaPacient(pacient);
+                        clear_screen();
+                        std::cout<<"Pacientul "<<pacient.GetNumePacient()<< " a fost adaugat cu succes!"<<std::endl;
                         std::cout << "Apasa Enter pentru a continua...";
                         std::cin.get();
                         break;
                     }
                     case 2: {//adauga consultatie
-                        std::string numePacient, numeMedic, data, diagnostic;
+                        std::string nume_pacient, nume_medic, data, diagnostic;
                         std:: cout << "Introduceti numele pacientului: ";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        getline(std::cin, numePacient);
+                        getline(std::cin, nume_pacient);
                         std::cout << "Introduceti numele medicului: ";
-                        getline(std::cin, numeMedic);
-                        Pacient* pacientGasit = spital.cautaPacient(numePacient);
-                        Medic* medicGasit = spital.cautaMedic(numeMedic);
+                        getline(std::cin, nume_medic);
+                        Pacient* pacient_gasit = spital.CautaPacient(nume_pacient);
+                        Medic* medic_gasit = spital.CautaMedic(nume_medic);
 
-                        if (!pacientGasit) {
-                            clearScreen();
-                            std::cout << "Pacientul " << numePacient << " nu exista!" << std::endl;
+                        if (!pacient_gasit) {
+                            clear_screen();
+                            std::cout << "Pacientul " << nume_pacient << " nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                             break;
                         }
-                        if (!medicGasit) {
-                            clearScreen();
-                            std::cout << "Medicul " << numeMedic << " nu exista!" << std::endl;
+                        if (!medic_gasit) {
+                            clear_screen();
+                            std::cout << "Medicul " << nume_medic << " nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                             break;
@@ -428,11 +428,11 @@ int main() {
                         std::cout << "Introduceti problema pe care o aveti: ";
                         std::cin.ignore();
                         getline(std::cin, diagnostic);
-                        pacientGasit->adaugaIstoricMedical(diagnostic);
+                        pacient_gasit->AdaugaIstoricMedical(diagnostic);
 
 
-                        Consultatie consultatie(pacientGasit, medicGasit, data, diagnostic);
-                        spital.adaugaConsultatie(consultatie);
+                        Consultatie consultatie(pacient_gasit, medic_gasit, data, diagnostic);
+                        spital.AdaugaConsultatie(consultatie);
                         std::cout << "\033[2J\033[1;1H";
                         std::cout << "Programarea a fost facuta cu succes!" << std::endl;
                         std::cout << "Apasa Enter pentru a continua...";
@@ -440,10 +440,10 @@ int main() {
                         break;
                     }
                     case 3:{//afiseaza medicii
-                        clearScreen();
+                        clear_screen();
                         std::cout << "Medicii disponibili sunt: " << std::endl;
-                        for (auto& medic :spital.getMedici()){
-                            std::cout << "Medicul: "<<medic.getNumeMedic()<<" are specializarea: "<<medic.getSpecializare() << std::endl;
+                        for (auto& medic :spital.GetMedici()){
+                            std::cout << "Medicul: "<<medic.GetNumeMedic()<<" are specializarea: "<<medic.GetSpecializare() << std::endl;
                         }
                         std::cout << "Apasa Enter pentru a continua...";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // In case a previous std::cin left a newline
@@ -451,15 +451,15 @@ int main() {
                         break;
                     }
                     case 4:{//medicii pe sectii
-                        clearScreen();
+                        clear_screen();
                         std::cout << "Medicii din sectia de cardiologie sunt: " << std::endl;
-                        sectieCardiologie.getMediciCardiologie();
+                        sectie_cardiologie.GetMediciCardiologie();
                         std::cout << std::endl;
                         std::cout << "Medicii din sectia de chirurgie sunt: " << std::endl;
-                        sectieChirurgie.getMediciChirurgie();
+                        sectie_chirurgie.GetMediciChirurgie();
                         std::cout << std::endl;
                         std::cout << "Medicii din sectia de pediatrie sunt: " << std::endl;
-                        sectiePediatrie.getMediciPediatrie();
+                        sectie_pediatrie.GetMediciPediatrie();
                         std::cout << std::endl;
                         std::cout << "Apasa Enter pentru a continua...";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -471,16 +471,16 @@ int main() {
                         std::cout << "Introduceti numele pacientului: ";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         getline(std::cin, nume); 
-                        Pacient* pacientGasit = spital.cautaPacient(nume);
-                        if (!pacientGasit) {
-                            clearScreen();
+                        Pacient* pacient_gasit = spital.CautaPacient(nume);
+                        if (!pacient_gasit) {
+                            clear_screen();
                             std::cout << "Pacientul " << nume << " nu exista!" << std::endl;
                             std::cout << "Apasa Enter pentru a continua...";
                             std::cin.get();
                             break;
                         }
-                        clearScreen();
-                        std::cout << *pacientGasit;
+                        clear_screen();
+                        std::cout << *pacient_gasit;
                         std::cout << "Apasa Enter pentru a continua...";
                         std::cin.get();
                         break;
@@ -490,26 +490,26 @@ int main() {
                         std::cout << "Numele pacientului pentru care doriti sa vedeti consultatiile: ";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         getline(std::cin, nume);
-                        Pacient* pacientGasit = spital.cautaPacient(nume);
-                        if (!pacientGasit) {
-                            clearScreen();
+                        Pacient* pacient_gasit = spital.CautaPacient(nume);
+                        if (!pacient_gasit) {
+                            clear_screen();
                             std::cout << "Pacientul " << nume << " nu exista!" << std::endl;
                             break;
                         }
                         std::cout << "\033[2J\033[1;1H";
                         std::cout << "Consultatiile pacientului " << nume << ":" << std::endl<< std::endl;
 
-                        std::vector<Consultatie> listaConsultatii = spital.getConsultatii();
-                        for (auto& consultatie : listaConsultatii) {
-                            if (consultatie.getPacient() == pacientGasit) {
-                                consultatie.afisareDetalii();
+                        std::vector<Consultatie> lista_consultatii = spital.GetConsultatii();
+                        for (auto& consultatie : lista_consultatii) {
+                            if (consultatie.GetPacient() == pacient_gasit) {
+                                consultatie.AfisareDetalii();
                             }
                         }
 
                         std::cout<<std::endl<< "Retelele pacientului "<<nume<< " sunt: \n";
-                        for(auto& reteta: spital.getRetete()){
-                            if(reteta.getPacient()==pacientGasit){
-                                reteta.afisareReteta();
+                        for(auto& reteta: spital.GetRetete()){
+                            if(reteta.GetPacient()==pacient_gasit){
+                                reteta.AfisareReteta();
                             }
                         }
                         std::cout << "Apasa Enter pentru a continua...";
@@ -517,18 +517,18 @@ int main() {
                         break;
                     }
                     case 7:
-                        clearScreen();
-                        inapoiLaMeniu = true;
-                        loggedIn = false;
+                        clear_screen();
+                        inapoi_la_meniu = true;
+                        logged_in = false;
                         break;
                     
                     case 8:
-                    clearScreen();
+                    clear_screen();
                     std::cout << "Multumesc ca ai folosit aplicatia!<3" << std::endl;
                         return 0;
 
                     default:
-                    clearScreen();
+                    clear_screen();
                     std::cout << "Optiune invalida! Te rog sa alegi o optiune valida." << std::endl;
                     std::cout << "Apasa Enter pentru a continua...";
                     std::cin.get();
