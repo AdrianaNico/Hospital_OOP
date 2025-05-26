@@ -14,10 +14,6 @@
 #include "sectie_chirurgie.h"
 #include "sectie_pediatrie.h"
 
-//supraincarcare operatori
-//supraincarcarea functiilor
-
-
 int main() {
     Spital spital;
     SectieCardiologie sectie_cardiologie;
@@ -191,11 +187,11 @@ int main() {
                         std::cout << "Numele medicului pentru care doriti sa vedeti consultatiile: ";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         getline(std::cin, nume_medic);
-                        std::vector<Medic>& lista_medici = spital.GetMedici();
+                        std::vector<std::unique_ptr<Medic>>& lista_medici = spital.GetMedici();
                         Medic* medic_gasit = nullptr;
-                        for (auto& medic : lista_medici) {
-                            if (medic.GetNumeMedic() == nume_medic) {
-                                medic_gasit = &medic;
+                        for (const auto& medic_ptr : lista_medici) {
+                            if (medic_ptr->GetNumeMedic() == nume_medic) {
+                                medic_gasit = medic_ptr.get(); // Obținem pointerul brut( il "de-pointuim")
                                 break;
                             }
                         }
@@ -207,6 +203,7 @@ int main() {
                             break;
                         }
                         clear_screen();
+                        std::cout << "Consultatiile medicului " << medic_gasit->GetNumeMedic() << " sunt: " << std::endl<< std::endl;
                         medic_gasit->AfisareConsultatii(spital.GetConsultatii(), medic_gasit);
                         std::cout<< "Apasa Enter pentru a continua...";
                         std::cin.get();
@@ -442,8 +439,8 @@ int main() {
                     case 3:{//afiseaza medicii
                         clear_screen();
                         std::cout << "Medicii disponibili sunt: " << std::endl;
-                        for (auto& medic :spital.GetMedici()){
-                            std::cout << "Medicul: "<<medic.GetNumeMedic()<<" are specializarea: "<<medic.GetSpecializare() << std::endl;
+                        for (const auto& medic_ptr :spital.GetMedici()){
+                            std::cout << "Medicul: "<<medic_ptr->GetNumeMedic()<<" are specializarea: "<<medic_ptr->GetSpecializare() << std::endl;
                         }
                         std::cout << "Apasa Enter pentru a continua...";
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // In case a previous std::cin left a newline
@@ -481,6 +478,7 @@ int main() {
                         }
                         clear_screen();
                         std::cout << *pacient_gasit;
+                        std::cout<<std::endl;
                         std::cout << "Apasa Enter pentru a continua...";
                         std::cin.get();
                         break;
@@ -494,6 +492,8 @@ int main() {
                         if (!pacient_gasit) {
                             clear_screen();
                             std::cout << "Pacientul " << nume << " nu exista!" << std::endl;
+                            std::cout << "Apasa Enter pentru a continua...";
+                            std::cin.get();
                             break;
                         }
                         std::cout << "\033[2J\033[1;1H";

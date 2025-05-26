@@ -12,12 +12,13 @@ class SectieCardiologie;
 class SectiePediatrie;
 #include <vector>
 #include <string>
+#include <memory>
 #include <iostream>
 
 class Spital {
 private:
-    std::vector<Medic> m_medici;
-    std::vector<Pacient> m_pacienti;
+    std::vector<std::unique_ptr<Medic>> m_medici;
+    std::vector<std::unique_ptr<Pacient>> m_pacienti;
     std::vector<Consultatie> m_consultatii;
     std::vector<Reteta> m_retete;
     std::vector<SectieChirurgie*> m_sectie_chirurgie;
@@ -34,7 +35,7 @@ public:
     void AfisareConsultatii();
     bool ExistaConsultatie(std::string numeMedic, std::string numePacient);
 
-    std::vector<Medic>& GetMedici();
+    std::vector<std::unique_ptr<Medic>>& GetMedici();
     std::vector<Consultatie>& GetConsultatii();
     std::vector<Reteta>& GetRetete();
     Pacient* CautaPacient(std::string nume);

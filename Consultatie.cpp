@@ -10,7 +10,7 @@ Consultatie::Consultatie(Pacient* p, Medic* m, std::string d, std::string diag)
 Consultatie::~Consultatie() {}
 
 void Consultatie::AfisareDetalii() {
-    std::cout << "Consultatie: " << m_data << ", Diagnosticul: " << m_diagnostic
+    std::cout << "Consultatie-> Data: " << m_data << ", Diagnosticul: " << m_diagnostic
          << ", Medic: " << m_medic->GetNumeMedic() << "\n";
 }
 

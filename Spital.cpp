@@ -1,11 +1,12 @@
 #include "spital.h"
+#include <memory> // pentru std::shared_ptr si std::unique_ptr
 
 void Spital::AdaugaMedic(Medic m) {
-    m_medici.push_back(m);
+    m_medici.push_back(std::make_unique<Medic>(m));
 }
 
 void Spital::AdaugaPacient(Pacient p) {
-    m_pacienti.push_back(p);
+    m_pacienti.push_back(std::make_unique<Pacient>(p));
 }
 
 void Spital::AdaugaConsultatie(Consultatie c) {
@@ -21,7 +22,7 @@ void Spital::AfisareConsultatii() {
         c.AfisareDetalii();
 }
 
-std::vector<Medic>& Spital::GetMedici() {
+std::vector<std::unique_ptr<Medic>>& Spital::GetMedici() {
     return m_medici;
 }
 
@@ -34,16 +35,20 @@ std::vector<Reteta>& Spital::GetRetete() {
 }
 
 Pacient* Spital::CautaPacient(std::string nume) {
-    for (auto& pacient : m_pacienti)
-        if (pacient.GetNumePacient() == nume)
-            return &pacient;
+    for (const auto& pacient_ptr : m_pacienti) {
+        if (pacient_ptr->GetNumePacient() == nume) {
+            return pacient_ptr.get(); //returneaza pointerul brut
+        }
+    }
     return nullptr;
 }
 
 Medic* Spital::CautaMedic(std::string nume) {
-    for (auto& medic : m_medici)
-        if (medic.GetNumeMedic() == nume)
-            return &medic;
+    for (const auto& medic_ptr : m_medici) {
+        if (medic_ptr->GetNumeMedic() == nume) {
+            return medic_ptr.get(); // Returnează pointerul brut
+        }
+    }
     return nullptr;
 }
 
